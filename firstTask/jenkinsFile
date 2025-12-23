@@ -28,7 +28,7 @@ pipeline{
             steps{
                 sh 'echo "Deploying to staging environement"'
             }
-        }
+        }g
 
         post{
             success{
