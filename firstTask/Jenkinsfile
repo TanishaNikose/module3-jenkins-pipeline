@@ -4,20 +4,22 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                // SCM se code download karne ke liye
                 checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                // Windows par agar docker command nahi mil rahi toh verify karein
-                sh 'docker build -t flask-app:${BUILD_NUMBER} .'
+                // Windows par Docker build chalane ke liye 'bat' ka use kiya gaya hai
+                bat "docker build -t flask-app:%BUILD_NUMBER% ."
             }
         }
 
         stage('Test') {
             steps {
-                sh 'echo "Running basic tests..."'
+                // Windows terminal par message print karne ke liye
+                bat 'echo "Running basic tests..."'
             }
         }
 
@@ -26,10 +28,10 @@ pipeline {
                 branch 'develop'
             }
             steps {
-                sh 'echo "Deploying to staging environment"'
+                bat 'echo "Deploying to staging environment"'
             }
         }
-    } // <--- Stages yahan khatam hona chahiye
+    }
 
     post {
         success {
